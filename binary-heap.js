@@ -8,8 +8,8 @@ class Node {
 
 class MaxBinaryHeap {
     constructor(){
-        this.root = new Node(null);
-        this.lastParent = null;
+        this.root = null;
+        this.lastParent = this.root;
     }
 
     insert(value){
@@ -17,6 +17,7 @@ class MaxBinaryHeap {
         
         if(this.root === null){
             this.root = newNode;
+            this.lastParent = this.root;
             return this;
         }
 
@@ -26,12 +27,20 @@ class MaxBinaryHeap {
         }
 
         if(!this.lastParent.right){
-            this.lastParent.Right = newNode;
+            this.lastParent.right = newNode;
             this.lastParent = this.lastParent.left;
             return this;
         }
     }
 }
+
+const h = new MaxBinaryHeap();
+h.insert(15);
+h.insert(7);
+h.insert(9);
+h.insert(3);
+h.insert(5);
+debugger;
 
 //      15          
 //     /  \
