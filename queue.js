@@ -21,6 +21,7 @@ class Queue{
             this.back = newNode;
         }
         this.length++;
+        return this;
     }
 
     dequeue(){
@@ -29,12 +30,16 @@ class Queue{
         }
 
         this.length--;
+        let val;
         if(this.length === 0){
             this.back = new Node(null);
+            val = this.front.value;
             this.front = this.back;
         } else {
+            val = this.front.value;
             this.front = this.front.next;
         }
+        return val;
     }
 
     peek(){
@@ -51,3 +56,5 @@ let q = new Queue();
 
 // front      back
 //   5 => 7 => 9
+
+module.exports = {Queue};

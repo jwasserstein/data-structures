@@ -1,3 +1,6 @@
+const {Queue} = require('./queue');
+const {Stack} = require('./stack');
+
 class Node{
     constructor(value){
         this.value = value;
@@ -99,6 +102,66 @@ class BST{
         }
         return value;
     }
+
+    breadthFirstSearch(target){ 
+        if(this.root.value === target) return this.root;
+
+        const q = new Queue();
+        if(this.root.left){
+            q.enqueue(this.root.left);
+        }
+        if(this.root.right){
+            q.enqueue(this.root.right);
+        }
+
+        while(q.length > 0){
+            const nextNode = q.dequeue();
+
+            if(nextNode.value === target){
+                return nextNode;
+            }
+            if(nextNode.left){
+                q.enqueue(nextNode.left);
+            }
+            if(nextNode.right){
+                q.enqueue(nextNode.right);
+            }
+        }
+        return null;
+    }
+
+    depthFirstSearchPreOrder(arr, _node){
+        _node = _node !== undefined ? _node : this.root;  // if _node is undefined, user didn't pass it.  assume this.root
+        arr = arr !== undefined ? arr : [];
+
+        if(_node === null) return null;
+        
+        arr.push(_node.value);
+        this.depthFirstSearchPreOrder(arr, _node.left);
+        this.depthFirstSearchPreOrder(arr, _node.right);
+    }
+
+    depthFirstSearchInOrder(arr, _node){
+        _node = _node !== undefined ? _node : this.root;  // if _node is undefined, user didn't pass it.  assume this.root
+        arr = arr !== undefined ? arr : [];
+
+        if(_node === null) return null;
+        
+        this.depthFirstSearchInOrder(arr, _node.left);
+        arr.push(_node.value);
+        this.depthFirstSearchInOrder(arr, _node.right);
+    }
+
+    depthFirstSearchPostOrder(arr, _node){
+        _node = _node !== undefined ? _node : this.root;  // if _node is undefined, user didn't pass it.  assume this.root
+        arr = arr !== undefined ? arr : [];
+
+        if(_node === null) return null;
+        
+        this.depthFirstSearchPostOrder(arr, _node.left);
+        this.depthFirstSearchPostOrder(arr, _node.right);
+        arr.push(_node.value);
+    }
 }
 
 let b = new BST();
@@ -108,7 +171,10 @@ b.insert(18);
 b.insert(10);
 b.insert(14);
 b.insert(20);
-debugger;
+
+const a = [];
+b.depthFirstSearchPostOrder(a);
+console.log(a);
 
 
 //       15
@@ -116,3 +182,5 @@ debugger;
 //    13    18
 //   /  \     \ 
 // 10    14    20
+
+module.exports = {BST};

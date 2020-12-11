@@ -97,3 +97,5 @@ class QueueUsingStack{
         return val;
     }
 }
+
+module.exports = {Stack: StackArr};
