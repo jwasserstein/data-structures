@@ -8,19 +8,18 @@ class Node {
 class LinkedList {
   constructor() {
     this.head = null;
+    this.tail = null;
   }
 
   addEnd(val) {
     if (this.head === null) {
       this.head = new Node(val, null);
+      this.tail = this.head;
       return;
     }
 
-    let currNode = this.head;
-    while (currNode.next) {
-      currNode = currNode.next;
-    }
-    currNode.next = new Node(val, null);
+    this.tail.next = new Node(val, null);
+    this.tail = this.tail.next;
   }
 
   addBeginning(val) {
@@ -42,6 +41,7 @@ class LinkedList {
     
     const returnVal = currNode.next.val;
     currNode.next = null;
+    this.tail = currNode;
     return returnVal;
   }
 
@@ -54,9 +54,17 @@ class LinkedList {
   }
 }
 
-const ll = new LinkedList();
-ll.addEnd(5);
-ll.addEnd(6);
-ll.addBeginning(4);
-console.log(ll.removeBeginning());
-console.log(ll.head);
+// const ll = new LinkedList();
+// ll.addEnd(3);
+// ll.addEnd(4);
+// ll.addEnd(5);
+// ll.addEnd(6);
+// console.log(ll.head);
+// console.log(ll.removeBeginning());
+// console.log(ll.removeBeginning());
+// console.log(ll.head);
+// console.log(ll.removeBeginning());
+// console.log(ll.removeBeginning());
+// console.log(ll.head);
+
+module.exports = LinkedList;
